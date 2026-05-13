@@ -23,7 +23,7 @@
         </h3>
 
         {% for comment in comments %}
-            <div style="background-color: white; border-radius: 20px; padding: 16px; margin-bottom: 12px;">
+            <div style="background-color: var(--md-sys-color-inverse-on-surface); border-radius: 20px; padding: 16px; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                     <span class="material-symbols-outlined" style="color: var(--md-primary);">account_circle</span>
                     <strong>{{ comment.author }}</strong>
@@ -34,14 +34,14 @@
                 <p style="color: var(--md-on-surface-variant);">{{ comment.text|linebreaks }}</p>
             </div>
         {% empty %}
-            <div style="background-color: white; border-radius: 20px; padding: 32px; text-align: center; color: var(--md-on-surface-variant);">
+            <div style="background-color: var(--md-sys-color-inverse-on-surface); border-radius: 20px; padding: 32px; text-align: center; color: var(--md-on-surface-variant);">
                 <span class="material-symbols-outlined" style="font-size: 48px;">chat_bubble_outline</span>
                 <p style="margin-top: 8px;">Нет комментариев. Будьте первым!</p>
             </div>
         {% endfor %}
     </div>
 
-    <div style="margin-top: 32px; background-color: white; border-radius: 28px; padding: 24px;">
+    <div style="margin-top: 32px; background-color: var(--md-sys-color-inverse-on-surface); border-radius: 28px; padding: 24px;">
         <h4 style="font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
             <span class="material-symbols-outlined">add_comment</span>
             Добавить комментарий
