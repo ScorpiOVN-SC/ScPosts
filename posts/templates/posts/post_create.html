@@ -1,0 +1,33 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Новый пост{% endblock %}
+
+{% block content %}
+    <div class="post-card">
+        <h1 style="font-size: 28px; font-weight: 500; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined">edit_note</span>
+            Создать пост
+        </h1>
+        <form method="post">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--md-on-surface-variant); font-weight: 500;">Заголовок</label>
+                {{ form.title }}
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--md-on-surface-variant); font-weight: 500;">Содержание</label>
+                {{ form.content }}
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button type="submit" class="btn-new" style="border: none; cursor: pointer;">
+                    <span class="material-symbols-outlined">publish</span>
+                    Опубликовать
+                </button>
+                <a href="{% url 'posts:post_list' %}" style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--md-surface-variant); color: var(--md-on-surface); padding: 10px 20px; border-radius: 100px; text-decoration: none; font-weight: 500;">
+                    <span class="material-symbols-outlined">close</span>
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

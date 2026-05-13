@@ -1,0 +1,72 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="post-card">
+        <div class="post-meta">
+            <span class="material-symbols-outlined">schedule</span>
+            {{ post.created_at|date:"d.m.Y H:i" }}
+            <span class="material-symbols-outlined">edit</span>
+            {{ post.updated_at|date:"d.m.Y H:i" }}
+        </div>
+        <h1 class="post-title" style="font-size: 32px;">{{ post.title }}</h1>
+        <div class="post-content" style="font-size: 16px; margin-top: 24px;">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+
+    <div style="margin-top: 32px;">
+        <h3 style="font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">chat</span>
+            Комментарии ({{ comments.count }})
+        </h3>
+
+        {% for comment in comments %}
+            <div style="background-color: white; border-radius: 20px; padding: 16px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <span class="material-symbols-outlined" style="color: var(--md-primary);">account_circle</span>
+                    <strong>{{ comment.author }}</strong>
+                    <span style="color: var(--md-on-surface-variant); font-size: 12px;">
+                        {{ comment.created_at|date:"d.m.Y H:i" }}
+                    </span>
+                </div>
+                <p style="color: var(--md-on-surface-variant);">{{ comment.text|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <div style="background-color: white; border-radius: 20px; padding: 32px; text-align: center; color: var(--md-on-surface-variant);">
+                <span class="material-symbols-outlined" style="font-size: 48px;">chat_bubble_outline</span>
+                <p style="margin-top: 8px;">Нет комментариев. Будьте первым!</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="margin-top: 32px; background-color: white; border-radius: 28px; padding: 24px;">
+        <h4 style="font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">add_comment</span>
+            Добавить комментарий
+        </h4>
+        <form method="post" action="{% url 'posts:add_comment' post.pk %}">
+            {% csrf_token %}
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--md-on-surface-variant);">Имя</label>
+                {{ form.author }}
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--md-on-surface-variant);">Комментарий</label>
+                {{ form.text }}
+            </div>
+            <button type="submit" class="btn-new" style="border: none; cursor: pointer;">
+                <span class="material-symbols-outlined">send</span>
+                Отправить
+            </button>
+        </form>
+    </div>
+
+    <div style="margin-top: 24px;">
+        <a href="{% url 'posts:post_list' %}" style="display: inline-flex; align-items: center; gap: 8px; color: var(--md-primary); text-decoration: none;">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Назад к списку
+        </a>
+    </div>
+{% endblock %}
