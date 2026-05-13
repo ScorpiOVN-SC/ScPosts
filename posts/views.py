@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
@@ -10,7 +8,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'posts/post_list.html'
     context_object_name = 'posts'
-    paginate_by = 5
+    paginate_by = 6
 
 class PostDetailView(DetailView):
     model = Post
@@ -31,11 +29,11 @@ def add_comment(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('post_detail', pk=post.pk)
-    return redirect('post_detail', pk=post.pk)
+            return redirect('posts:post_detail', pk=post.pk)
+    return redirect('posts:post_detail', pk=post.pk)
 
 class PostCreateView(CreateView):
     model = Post
     template_name = 'posts/post_create.html'
     fields = ['title', 'content']
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('posts:post_list')
